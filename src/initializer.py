@@ -1,6 +1,7 @@
 import json
 import shutil
 import os
+import traceback
 from pathlib import Path
 
 class Initializer:
@@ -8,9 +9,12 @@ class Initializer:
     ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 
     def print_exception_info(self, e: Exception) -> None:
-        print(type(e))
-        print(e.args)
-        print(e, "\n")
+        print("\n--- Exception Occurred ---")
+        print(f"Type    : {type(e).__name__}")
+        print(f"Message : {e}")
+        print("Traceback (most recent call last):")
+        traceback.print_tb(e.__traceback__)
+        print("---------------------------\n")
     
     def make_dirs(self, project_path: str, dirs: list) -> None:
         for my_dir in dirs:
@@ -26,7 +30,6 @@ class Initializer:
                 file_path_dst = os.path.join(file_path_dst, my_dir)
             file_path_dst = os.path.join(file_path_dst, file["name"])
 
-            print (f'file_path_src = {file_path_src}, file_path_dst = {file_path_dst}')
             Path(file_path_dst).touch()
             shutil.copyfile(file_path_src, file_path_dst)
 
