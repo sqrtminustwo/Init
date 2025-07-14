@@ -7,7 +7,7 @@ set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # All .cpp files
-add_executable(UnsignedBigInteger
+add_executable(ProjectName
     src/main.cpp
 )
 
