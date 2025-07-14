@@ -19,7 +19,7 @@ System > Advanced System Settings > Environment Variables > PATH
 ```
 
 3. Create `cppinit.bat` inside your scripts folder with the following content:  
-*(Replace `your_path_to_installation` with the actual path where `cppinit.py` is located)*
+*(Replace `your\path\to` with the actual path where `cppinit.py` is located)*
 
 ```bat
 @echo off
