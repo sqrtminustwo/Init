@@ -1,10 +1,10 @@
 {
-    "dirs" : [
+    "dirs": [
         "src", 
         "resources"
     ],
 
-    "files" : [
+    "files": [
         {
             "path": ["src"],
             "name": "main.cpp"
