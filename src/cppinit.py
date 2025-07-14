@@ -2,6 +2,25 @@ import initializer
 import sys
 import os
 
+# import json
+
+# ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+# config = os.path.join(ROOT_DIR, "resources", "config.json")
+
+# with open(config, 'r') as file:
+#     data = json.load(file)
+#     print("Dirs:")
+#     for dir in data["dirs"]:
+#         print(dir)
+#     print()
+
+#     print("Files:")
+#     for file in data["files"]:
+#         for path_part in file["path"]:
+#             print(path_part)
+#         print(file["name"])
+
+
 project_name = None
 base_dir = os.getcwd()
 

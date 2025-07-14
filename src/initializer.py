@@ -1,23 +1,59 @@
+import json
+import shutil
 import os
+from pathlib import Path
 
 class Initializer:
 
     ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 
-    def __init__(self, base_dir, project_name):
-        self.path = None
-        try:
-            self.path = os.path.join(base_dir, project_name);
-            to_create = []
-            try:
-                needed_dirs = os.path.join(Initializer.ROOT_DIR, "resources", "needed_dirs.txt");
-                with open(needed_dirs, "r") as dirs:
-                    to_create = [e.strip() for e in dirs.readlines()];
-            except:
-                print("Failed to open:", needed_dirs)
-
-            for i in to_create:
-                print(i)
-        except:
-            print(f'Invalid project name "{project_name}"', f'or directory {base_dir} where passed to initializer' if base_dir is not None else '');
+    def print_exception_info(self, e: Exception) -> None:
+        print(type(e))
+        print(e.args)
+        print(e, "\n")
+    
+    def make_dirs(self, project_path: str, dirs: list) -> None:
+        for my_dir in dirs:
+            new_path = os.path.join(project_path, my_dir)
+            Path(new_path).mkdir()
         
+    def copy_files(self, project_path: str, files_path: str, config_files: list) -> None:
+        for file in config_files:
+            file_path_src = os.path.join(files_path, file["name"])
+            file_path_dst = project_path
+
+            for my_dir in file["path"]:
+                file_path_dst = os.path.join(file_path_dst, my_dir)
+            file_path_dst = os.path.join(file_path_dst, file["name"])
+
+            print (f'file_path_src = {file_path_src}, file_path_dst = {file_path_dst}')
+            Path(file_path_dst).touch()
+            shutil.copyfile(file_path_src, file_path_dst)
+
+    def __init__(self, base_dir, project_name):
+
+        self.base_project_path = None
+        self.config = None
+        self.files = None
+
+        try:
+
+            self.base_project_path = os.path.join(base_dir, project_name);
+            config_path = os.path.join(Initializer.ROOT_DIR, "resources", "config.json")
+
+            try:
+                with open(config_path, "r") as config:
+                    self.config = json.load(config);
+            except Exception as e:
+                print("Failed to open config:")
+                self.print_exception_info(e)
+
+            Path(self.base_project_path).mkdir()
+            self.make_dirs(self.base_project_path, self.config["dirs"])
+
+            self.files = os.path.join(Initializer.ROOT_DIR, "resources", "files")
+            self.copy_files(self.base_project_path, self.files, self.config["files"])
+            
+        except Exception as e:
+            print(f'Error initializing')
+            self.print_exception_info(e)

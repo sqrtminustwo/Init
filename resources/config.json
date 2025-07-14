@@ -1,0 +1,17 @@
+{
+    "dirs" : [
+        "src", 
+        "resources"
+    ],
+
+    "files" : [
+        {
+            "path": ["src"],
+            "name": "main.cpp"
+        },
+        {
+            "path": [],
+            "name": "CMakeLists.txt"
+        }
+    ]
+}
