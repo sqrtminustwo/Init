@@ -6,12 +6,12 @@
 
     "files": [
         {
-            "path": ["src"],
-            "name": "main.cpp"
+            "name": "main.cpp",
+            "path": ["src"]
         },
         {
-            "path": [],
-            "name": "CMakeLists.txt"
+            "name": "CMakeLists.txt",
+            "path": []
         }
     ]
 }
