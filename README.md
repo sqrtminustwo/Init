@@ -23,7 +23,7 @@ System > Advanced System Settings > Environment Variables > PATH
 
 ```bat
 @echo off
-python "your_path_to_installation\cppinit.py" %*
+python "your\path\to\cppinit.py" %*
 ```
 
 > [!CAUTION]
