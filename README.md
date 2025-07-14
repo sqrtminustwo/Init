@@ -66,12 +66,12 @@ Project structure is configured via [`resources/config.json`](resources/config.j
     ],
     "files": [
         {
-            "name": "main.cpp"
-            "path": ["src"],
+            "name": "main.cpp",
+            "path": ["src"]
         },
         {
-            "name": "CMakeLists.txt"
-            "path": [],
+            "name": "CMakeLists.txt",
+            "path": []
         }
     ]
 }
