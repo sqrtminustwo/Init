@@ -6,7 +6,7 @@ from pathlib import Path
 
 class Initializer:
 
-    ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+    ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 
     def print_exception_info(self, e: Exception) -> None:
         print("\n--- Exception Occurred ---")

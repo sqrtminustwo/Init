@@ -1,4 +1,4 @@
-import initializer
+from initializer.initializer import Initializer
 import sys
 import os
 
@@ -18,6 +18,6 @@ except:
     print('Usage: ./cppinit project_name [Base dir path]')
 
 if (project_name is not None) or (base_dir is not None):
-    init = initializer.Initializer(base_dir, project_name);
+    init = Initializer(base_dir, project_name);
 else:
     print(f'Invlaid project name {project_name} or base_dir {base_dir}')
