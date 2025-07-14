@@ -60,11 +60,11 @@ Project structure is configured via [`resources/config.json`](resources/config.j
 
 ```json
 {
-    "dirs" : [
+    "dirs": [
         "src",
         "resources"
     ],
-    "files" : [
+    "files": [
         {
             "path": ["src"],
             "name": "main.cpp"
