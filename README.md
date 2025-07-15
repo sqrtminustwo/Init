@@ -31,7 +31,7 @@ python "your\path\to\p_init.py" "configname" %*
 ```
 
 > [!CAUTION]
-> Do not remove `%*`. It is required to forward arguments. (`%*` stands for a variable number of arguments in case the number changes in the future.)
+> Do not remove `%*`. It is required to forward arguments (`%*` stands for a variable number of arguments in case the number changes in the future).
 
 #### Usage
 ```bash
