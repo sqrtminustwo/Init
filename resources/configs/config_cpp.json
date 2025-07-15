@@ -1,0 +1,21 @@
+{
+    "dirs": [
+        "src", 
+        "resources"
+    ],
+    "files_root": "c++",
+    "files": [
+        {
+            "name": "main.cpp",
+            "path": ["src"]
+        },
+        {
+            "name": "CMakeLists.txt",
+            "path": []
+        },
+        {
+            "name": ".gitignore",
+            "path": []
+        }
+    ]
+}

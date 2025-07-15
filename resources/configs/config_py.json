@@ -3,14 +3,14 @@
         "src", 
         "resources"
     ],
-
+    "files_root": "python",
     "files": [
         {
-            "name": "main.cpp",
+            "name": "main.py",
             "path": ["src"]
         },
         {
-            "name": "CMakeLists.txt",
+            "name": ".gitignore",
             "path": []
         }
     ]

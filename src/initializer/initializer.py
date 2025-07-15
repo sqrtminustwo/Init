@@ -1,6 +1,7 @@
 import json
 import shutil
 import os
+import sys
 import traceback
 from pathlib import Path
 
@@ -8,12 +9,12 @@ class Initializer:
 
     ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 
-    def print_exception_info(self, e: Exception) -> None:
-        print("\n--- Exception Occurred ---")
-        print(f"Type    : {type(e).__name__}")
-        print(f"Message : {e}")
+    def print_exception_info(self, msg: str, ex: Exception) -> None:
+        print(f'\n--- {msg} ---')
+        print(f"Type    : {type(ex).__name__}")
+        print(f"Message : {ex}")
         print("Traceback (most recent call last):")
-        traceback.print_tb(e.__traceback__)
+        traceback.print_tb(ex.__traceback__)
         print("---------------------------\n")
     
     def make_dirs(self, project_path: str, dirs: list) -> None:
@@ -33,7 +34,10 @@ class Initializer:
             Path(file_path_dst).touch()
             shutil.copyfile(file_path_src, file_path_dst)
 
-    def __init__(self, base_dir, project_name):
+    def __init__(self, base_dir, project_name, config_name):
+
+        if len(config_name) < 5 or config_name[-5:] != ".json":
+            config_name += ".json"
 
         self.base_project_path = None
         self.config = None
@@ -42,21 +46,27 @@ class Initializer:
         try:
 
             self.base_project_path = os.path.join(base_dir, project_name);
-            config_path = os.path.join(Initializer.ROOT_DIR, "resources", "config.json")
+            config_path = os.path.join(Initializer.ROOT_DIR, "resources", "configs", config_name)
 
             try:
-                with open(config_path, "r") as config:
+                with open(config_path, "r", encoding="utf-8") as config:
                     self.config = json.load(config);
-            except Exception as e:
-                print("Failed to open config:")
-                self.print_exception_info(e)
+            except Exception as ex:
+                self.print_exception_info(f'Failed to open/read config "{config_name}"', ex)
+                sys.exit()
+
+            print("Loaded config!")
 
             Path(self.base_project_path).mkdir()
             self.make_dirs(self.base_project_path, self.config["dirs"])
 
-            self.files = os.path.join(Initializer.ROOT_DIR, "resources", "files")
+            print("Made dirs!")
+
+            self.files = os.path.join(Initializer.ROOT_DIR, "resources", "files", self.config["files_root"])
             self.copy_files(self.base_project_path, self.files, self.config["files"])
+
+            print("Copied files!")
             
-        except Exception as e:
-            print(f'Error initializing')
-            self.print_exception_info(e)
+        except Exception as ex:
+            self.print_exception_info("Error initializing", ex)
+            sys.exit()
