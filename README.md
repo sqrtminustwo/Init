@@ -1,6 +1,6 @@
-# CppInit
+# Init
 
-A simple Python script to initialize C++ project templates.
+A simple Python script to initialize project templates.
 
 ---
 
