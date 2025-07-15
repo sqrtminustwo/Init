@@ -108,4 +108,7 @@ Project structure is configured via [`resources/configs`](resources/configs). Ex
   - `name`: File name in `resources/files/files_root`
   - `path`: Path inside the project (empty array `[]` for the root directory).
 
+> [!NOTE]
+> The `.gitignore` file is not visible in [`resources/files/c++`](resources/files/c++) because `.gitignore` itself is listed in .gitignore. As a result, it is excluded from version control and does not appear in the repository.
+
 ---
