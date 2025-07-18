@@ -11,7 +11,7 @@ try:
     config = sys.argv[1]
     project_name = sys.argv[2]
 except:
-    print('Usage: ./cppinit project_name config')
+    print('Usage: ./cppinit config project_name')
     sys.exit()
 
 def print_if_none(arg, s: str) -> None:
