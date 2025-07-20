@@ -81,14 +81,22 @@ Project structure is configured via [`resources/configs`](resources/configs). Ex
 ```json
 {
     "dirs": [
-        "src",
-        "resources"
+        "src", 
+        ".vscode"
     ],
     "files_root": "c++",
     "files": [
         {
-            "name": "main.cpp"
-            "path": ["src"],
+            "name": "main.cpp",
+            "path": ["src"]
+        },
+        {
+            "name": "launch.json",
+            "path": [".vscode"]
+        },
+        {
+            "name": "CMakePresets.json",
+            "path": []
         },
         {
             "name": "CMakeLists.txt",

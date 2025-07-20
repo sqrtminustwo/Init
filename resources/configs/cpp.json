@@ -10,20 +10,20 @@
             "path": ["src"]
         },
         {
-            "name": "CMakeLists.txt",
-            "path": []
-        },
-        {
-            "name": ".gitignore",
-            "path": []
+            "name": "launch.json",
+            "path": [".vscode"]
         },
         {
             "name": "CMakePresets.json",
             "path": []
         },
         {
-            "name": "launch.json",
-            "path": [".vscode"]
+            "name": "CMakeLists.txt",
+            "path": []
+        },
+        {
+            "name": ".gitignore",
+            "path": []
         }
     ]
 }
