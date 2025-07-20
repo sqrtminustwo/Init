@@ -16,7 +16,7 @@
       }
     },
     {
-      "name": "Ninha (default)",
+      "name": "Ninja (default)",
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/build",
       "cacheVariables": {
