@@ -12,6 +12,6 @@ add_executable(ProjectName
 )
 
 # To use "Name.h" instead of "src/BlaBla/Name.h"
-target_include_directories(ProjectName PRIVATE src/Folder)
+# target_include_directories(ProjectName PRIVATE src/Folder)
 # To use experimental C++23 features
-target_link_libraries(ProjectName PRIVATE stdc++exp)
+# target_link_libraries(ProjectName PRIVATE stdc++exp)
