@@ -1,7 +1,7 @@
 {
     "dirs": [
         "src", 
-        "resources"
+        ".vscode"
     ],
     "files_root": "c++",
     "files": [
@@ -20,6 +20,10 @@
         {
             "name": "CMakePresets.json",
             "path": []
+        },
+        {
+            "name": "launch.json",
+            "path": [".vscode"]
         }
     ]
 }
