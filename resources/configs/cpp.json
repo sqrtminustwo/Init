@@ -1,6 +1,8 @@
 {
     "dirs": [
-        "src", 
+        "src",
+        "include", 
+        "tests",
         ".vscode"
     ],
     "files_root": "c++",
@@ -8,6 +10,10 @@
         {
             "name": "main.cpp",
             "path": ["src"]
+        },
+        {
+            "name": "tests.cpp",
+            "path": ["tests"]
         },
         {
             "name": "launch.json",
@@ -23,6 +29,10 @@
         },
         {
             "name": ".gitignore",
+            "path": []
+        },
+        {
+            "name": "README.md",
             "path": []
         }
     ]
