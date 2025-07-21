@@ -1,6 +1,7 @@
 # Set CMake version and project name
 cmake_minimum_required(VERSION 3.20)  # 3.20+ is safer for modern features
-project(ProjectName LANGUAGES CXX)
+# Set up project name
+project(CGuide LANGUAGES CXX)
 
 # Set C++ standard
 set(CMAKE_CXX_STANDARD 23)
@@ -34,6 +35,11 @@ check_ipo_supported(RESULT result)
 if(result)
     set_target_properties(${PROJECT_NAME} PROPERTIES INTERPROCEDURAL_OPTIMIZATION TRUE)
 endif()
+
+# For google test
+enable_testing()
+find_package(GTest REQUIRED)
+target_link_libraries(CGuide GTest::gtest GTest::gtest_main pthread)
 
 # Optional: link with stdc++exp only if truly needed (almost never in 2025 compilers)
 # target_link_libraries(${PROJECT_NAME} PRIVATE stdc++exp)
