@@ -57,14 +57,19 @@ class Initializer:
         for file in config_files:
             base_src = self.append_path(files_path, file["src_path"]) 
             avaliable_files = self.get_files_in_dir(base_src)
-            toadd_names = self.get_matches_in_dir(avaliable_files, re.compile(file["name"]))
+
+            toadd_names = None
+            if "name" in file:
+                toadd_names = self.get_matches_in_dir(avaliable_files, re.compile(file["name"]))
+            else:
+                toadd_names = [file["src_name"]]
 
             base_dst = self.append_path(project_path, file["dst_path"])
 
-
             for name in toadd_names:
                 file_path_src = os.path.join(base_src, name)
-                file_path_dst = os.path.join(base_dst, name)
+                dst_name = name if "name" in file else file["dst_name"]
+                file_path_dst = os.path.join(base_dst, dst_name)
 
                 Path(file_path_dst).touch()
                 shutil.copyfile(file_path_src, file_path_dst)

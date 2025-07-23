@@ -23,7 +23,8 @@
             "dst_path": [".vscode"]
         },
         {
-            "name": "^CMakePresets\\.json$",
+            "src_name": "Windows_CMakePresets.json",
+            "dst_name": "CMakePresets.json",
             "src_path": ["configs"],
             "dst_path": []
         },

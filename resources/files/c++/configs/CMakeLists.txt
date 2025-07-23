@@ -36,10 +36,5 @@ if(result)
     set_target_properties(${PROJECT_NAME} PROPERTIES INTERPROCEDURAL_OPTIMIZATION TRUE)
 endif()
 
-# For google test
-enable_testing()
-find_package(GTest REQUIRED)
-target_link_libraries(CGuide GTest::gtest GTest::gtest_main pthread)
-
 # Optional: link with stdc++exp only if truly needed (almost never in 2025 compilers)
 # target_link_libraries(${PROJECT_NAME} PRIVATE stdc++exp)

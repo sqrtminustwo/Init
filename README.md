@@ -104,7 +104,8 @@ Project structure is configured via [`resources/configs`](resources/configs). Ex
             "dst_path": [".vscode"]
         },
         {
-            "name": "^CMakePresets\\.json$",
+            "src_name": "Linux_CMakePresets.json",
+            "dst_name": "CMakePresets.json",
             "src_path": ["configs"],
             "dst_path": []
         },
@@ -122,17 +123,27 @@ Project structure is configured via [`resources/configs`](resources/configs). Ex
 }
 ```
 
-- **`dirs`**: Directories to create in the project root.
+- **`dirs`**: List of directories to create in the project root.
 
-- **`files_root`**: The folder within `resources/files` that contains language-specific files (e.g. [`resources/files/c++`](resources/files/c++)).
+- **`files_root`**: Subfolder inside `resources/files` that holds language-specific files  
+  _(e.g., `c++` in [`resources/files/c++`](resources/files/c++))_
 
-- **`files`**: Files to copy from `resources/files/<files_root>` to the project:
-  - **`name`**: Regex pattern to match filenames in `resources/files/<files_root>/<src_path>`.
+- **`files`**: Describes how files are copied from `resources/files/<files_root>` to the project.
 
-    > Use `^filename$` for exact matches and escape dots with `\\.`
-  
-  - **`src_path`**: Source subdirectory within the language folder (empty array `[]` for root).
-  
-  - **`dst_path`**: Destination path in the project (empty array `[]` for root).
+  ### File Matching and Naming:
+  - **`name`**: Regular expression to match filenames inside `resources/files/<files_root>/<src_path>`.  
+    > Use `^filename$` for exact matches and escape dots as `\\.`
+
+  - **`src_name`**: Exact name of a file in `resources/files/<files_root>/<src_path>`.  
+  - **`dst_name`**: Name to use for the copied file in the destination path.  
+    > If `name` is specified, `src_name` and `dst_name` are ignored.  
+    > `src_name` and `dst_name` do not support regex.
+
+  ### File Paths:
+  - **`src_path`**: Path (as an array of folders) under the language folder to find the source file.  
+    > Use an empty array `[]` for the root.
+
+  - **`dst_path`**: Path (as an array of folders) within the project where the file will be copied.  
+    > Use an empty array `[]` to copy into the project root.
 
 ---

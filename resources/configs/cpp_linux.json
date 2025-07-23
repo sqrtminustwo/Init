@@ -1,0 +1,42 @@
+{
+    "dirs": [
+        "src",
+        "include", 
+        "tests",
+        ".vscode"
+    ],
+    "files_root": "c++",
+    "files": [
+        {
+            "name": "^.*\\.cpp$",
+            "src_path": ["src"],
+            "dst_path": ["src"]
+        },
+        {
+            "name": "^test.*\\.cpp$",
+            "src_path": ["tests"],
+            "dst_path": ["tests"]
+        },
+        {
+            "name": "^launch\\.json$",
+            "src_path": ["configs"],
+            "dst_path": [".vscode"]
+        },
+        {
+            "src_name": "Linux_CMakePresets.json",
+            "dst_name": "CMakePresets.json",
+            "src_path": ["configs"],
+            "dst_path": []
+        },
+        {
+            "name": "^CMakeLists\\.txt$",
+            "src_path": ["configs"],
+            "dst_path": []
+        },
+        {
+            "name": "^.*$",
+            "src_path": ["github"],
+            "dst_path": []
+        }
+    ]
+}
