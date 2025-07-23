@@ -128,7 +128,7 @@ Project structure is configured via [`resources/configs`](resources/configs). Ex
 
 - **`files`**: Files to copy from `resources/files/<files_root>` to the project:
   - **`name`**: Regex pattern to match filenames in `resources/files/<files_root>/<src_path>`.
-    > [!NOTE]
+
     > Use `^filename$` for exact matches and escape dots with `\\.`
   
   - **`src_path`**: Source subdirectory within the language folder (empty array `[]` for root).
