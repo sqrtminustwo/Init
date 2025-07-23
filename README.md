@@ -81,42 +81,58 @@ Project structure is configured via [`resources/configs`](resources/configs). Ex
 ```json
 {
     "dirs": [
-        "src", 
+        "src",
+        "include", 
+        "tests",
         ".vscode"
     ],
     "files_root": "c++",
     "files": [
         {
-            "name": "main.cpp",
-            "path": ["src"]
+            "name": "^.*\\.cpp$",
+            "src_path": ["src"],
+            "dst_path": ["src"]
         },
         {
-            "name": "launch.json",
-            "path": [".vscode"]
+            "name": "^test.*\\.cpp$",
+            "src_path": ["tests"],
+            "dst_path": ["tests"]
         },
         {
-            "name": "CMakePresets.json",
-            "path": []
+            "name": "^launch\\.json$",
+            "src_path": ["configs"],
+            "dst_path": [".vscode"]
         },
         {
-            "name": "CMakeLists.txt",
-            "path": []
+            "name": "^CMakePresets\\.json$",
+            "src_path": ["configs"],
+            "dst_path": []
         },
         {
-            "name": ".gitignore",
-            "path": []
+            "name": "^CMakeLists\\.txt$",
+            "src_path": ["configs"],
+            "dst_path": []
+        },
+        {
+            "name": "^.*$",
+            "src_path": ["github"],
+            "dst_path": []
         }
     ]
 }
 ```
 
-- `dirs`: Directories to create in the project root.
-- `files_root`: [`resources/files`](resources/files) can have multiple folders with any name. The name of the folder with files for the project (based on language) should be specified here.
-- `files`: Files to copy from `resources/files/files_root`.  
-  - `name`: File name in `resources/files/files_root`
-  - `path`: Path inside the project (empty array `[]` for the root directory).
+- **`dirs`**: Directories to create in the project root.
 
-> [!NOTE]
-> Although I added the `.gitignore` file to the configuration, the file does not appear in [`resources/files/c++`](resources/files/c++) because `.gitignore` itself is listed in the project's main `.gitignore`. As a result, it is excluded from version control and does not show up in the repository.
+- **`files_root`**: The folder within `resources/files` that contains language-specific files (e.g. [`resources/files/c++`](resources/files/c++)).
+
+- **`files`**: Files to copy from `resources/files/<files_root>` to the project:
+  - **`name`**: Regex pattern to match filenames in `resources/files/<files_root>/<src_path>`.
+    > [!TIP]
+    > Use `^filename$` for exact matches and escape dots with `\\.`
+  
+  - **`src_path`**: Source subdirectory within the language folder (empty array `[]` for root).
+  
+  - **`dst_path`**: Destination path in the project (empty array `[]` for root).
 
 ---

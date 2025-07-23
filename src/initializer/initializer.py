@@ -3,7 +3,11 @@ import shutil
 import os
 import sys
 import traceback
+import re
+from re import Pattern
 from pathlib import Path
+from os import listdir
+from os.path import isfile, join
 
 class InitPart:
     def __init__(self, created_objects):
@@ -25,6 +29,20 @@ class Initializer:
         print("Traceback (most recent call last):")
         traceback.print_tb(ex.__traceback__)
         print("---------------------------\n")
+    
+    @staticmethod
+    def append_path(path: str, append: list) -> str:
+        for my_dir in append:
+            path = os.path.join(path, my_dir)
+        return path
+
+    @staticmethod
+    def get_files_in_dir(mydir: str) -> list:
+        return [f for f in listdir(mydir) if isfile(join(mydir, f))]
+    
+    @staticmethod
+    def get_matches_in_dir(files: list, regex: Pattern) -> list:
+        return [f for f in files if regex.match(f)]
 
     def __init__(self, base_dir, project_name, config_name):
 
@@ -88,15 +106,19 @@ class Initializer:
     def copy_files(self, project_path: str, files_path: str, config_files: list) -> InitPart:
         created_files = []
         for file in config_files:
-            file_path_src = os.path.join(files_path, file["name"])
-            file_path_dst = project_path
+            base_src = self.append_path(files_path, file["src_path"]) 
+            avaliable_files = self.get_files_in_dir(base_src)
+            toadd_names = self.get_matches_in_dir(avaliable_files, re.compile(file["name"]))
 
-            for my_dir in file["path"]:
-                file_path_dst = os.path.join(file_path_dst, my_dir)
-            file_path_dst = os.path.join(file_path_dst, file["name"])
+            base_dst = self.append_path(project_path, file["dst_path"])
 
-            Path(file_path_dst).touch()
-            shutil.copyfile(file_path_src, file_path_dst)
 
-            created_files.append(file_path_dst)
+            for name in toadd_names:
+                file_path_src = os.path.join(base_src, name)
+                file_path_dst = os.path.join(base_dst, name)
+
+                Path(file_path_dst).touch()
+                shutil.copyfile(file_path_src, file_path_dst)
+                created_files.append(file_path_dst)
+        
         return InitPart(created_files)

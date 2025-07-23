@@ -8,32 +8,34 @@
     "files_root": "c++",
     "files": [
         {
-            "name": "main.cpp",
-            "path": ["src"]
+            "name": "^.*\\.cpp$",
+            "src_path": ["src"],
+            "dst_path": ["src"]
         },
         {
-            "name": "tests.cpp",
-            "path": ["tests"]
+            "name": "^test.*\\.cpp$",
+            "src_path": ["tests"],
+            "dst_path": ["tests"]
         },
         {
-            "name": "launch.json",
-            "path": [".vscode"]
+            "name": "^launch\\.json$",
+            "src_path": ["configs"],
+            "dst_path": [".vscode"]
         },
         {
-            "name": "CMakePresets.json",
-            "path": []
+            "name": "^CMakePresets\\.json$",
+            "src_path": ["configs"],
+            "dst_path": []
         },
         {
-            "name": "CMakeLists.txt",
-            "path": []
+            "name": "^CMakeLists\\.txt$",
+            "src_path": ["configs"],
+            "dst_path": []
         },
         {
-            "name": ".gitignore",
-            "path": []
-        },
-        {
-            "name": "README.md",
-            "path": []
+            "name": "^.*$",
+            "src_path": ["github"],
+            "dst_path": []
         }
     ]
 }

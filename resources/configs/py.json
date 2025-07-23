@@ -7,11 +7,8 @@
     "files": [
         {
             "name": "main.py",
-            "path": ["src"]
-        },
-        {
-            "name": ".gitignore",
-            "path": []
+            "src_path": ["src"],
+            "dst_path": ["src"]
         }
     ]
 }
