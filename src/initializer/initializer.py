@@ -43,10 +43,38 @@ class Initializer:
     @staticmethod
     def get_matches_in_dir(files: list, regex: Pattern) -> list:
         return [f for f in files if regex.match(f)]
+    
+    def make_dirs(self, project_path: str, dirs: list) -> InitPart:
+        created_dirs = []
+        for my_dir in dirs:
+            new_path = os.path.join(project_path, my_dir)
+            Path(new_path).mkdir()
+            created_dirs.append(new_path)
+        return InitPart(created_dirs)
 
+    def copy_files(self, project_path: str, files_path: str, config_files: list) -> InitPart:
+        created_files = []
+        for file in config_files:
+            base_src = self.append_path(files_path, file["src_path"]) 
+            avaliable_files = self.get_files_in_dir(base_src)
+            toadd_names = self.get_matches_in_dir(avaliable_files, re.compile(file["name"]))
+
+            base_dst = self.append_path(project_path, file["dst_path"])
+
+
+            for name in toadd_names:
+                file_path_src = os.path.join(base_src, name)
+                file_path_dst = os.path.join(base_dst, name)
+
+                Path(file_path_dst).touch()
+                shutil.copyfile(file_path_src, file_path_dst)
+                created_files.append(file_path_dst)
+        
+        return InitPart(created_files)
+    
     def __init__(self, base_dir, project_name, config_name):
 
-        if len(config_name) < 5 or config_name[-5:] != ".json":
+        if len(config_name) < 5 or not (re.compile("^.*\\.json$")).match(config_name):
             config_name += ".json"
 
         self.base_project_path = None
@@ -94,31 +122,3 @@ class Initializer:
                 except Exception as ex:
                     self.print_exception_info("Failed to delete base directory", ex)
             sys.exit()
-
-    def make_dirs(self, project_path: str, dirs: list) -> InitPart:
-        created_dirs = []
-        for my_dir in dirs:
-            new_path = os.path.join(project_path, my_dir)
-            Path(new_path).mkdir()
-            created_dirs.append(new_path)
-        return InitPart(created_dirs)
-
-    def copy_files(self, project_path: str, files_path: str, config_files: list) -> InitPart:
-        created_files = []
-        for file in config_files:
-            base_src = self.append_path(files_path, file["src_path"]) 
-            avaliable_files = self.get_files_in_dir(base_src)
-            toadd_names = self.get_matches_in_dir(avaliable_files, re.compile(file["name"]))
-
-            base_dst = self.append_path(project_path, file["dst_path"])
-
-
-            for name in toadd_names:
-                file_path_src = os.path.join(base_src, name)
-                file_path_dst = os.path.join(base_dst, name)
-
-                Path(file_path_dst).touch()
-                shutil.copyfile(file_path_src, file_path_dst)
-                created_files.append(file_path_dst)
-        
-        return InitPart(created_files)
