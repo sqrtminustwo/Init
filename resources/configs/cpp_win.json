@@ -1,14 +1,14 @@
 {
     "dirs": [
-        "src",
-        "include", 
-        "tests",
-        ".vscode"
+        ["src"],
+        ["include"],
+        ["tests"],
+        [".vscode"]
     ],
     "files_root": "c++",
     "files": [
         {
-            "name": "^.*\\.cpp$",
+            "name": "^main\\.cpp$",
             "src_path": ["src"],
             "dst_path": ["src"]
         },

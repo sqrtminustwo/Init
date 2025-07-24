@@ -76,20 +76,20 @@ cppinit ProjectName
 
 ## Configuration
 
-Project structure is configured via [`resources/configs`](resources/configs). Example for a C++ project:
+Project structure is configured via [`resources/configs`](resources/configs). Example for a C++ project ([`full config from example`](resources/configs/cpp_glfw_win.json)):
 
 ```json
 {
     "dirs": [
-        "src",
-        "include", 
-        "tests",
-        ".vscode"
+        ["external", "include", "GLFW"],
+        ["external", "lib"],
+        ["src"]
     ],
     "files_root": "c++",
     "files": [
         {
-            "name": "^.*\\.cpp$",
+            "src_name": "main_glfw.cpp",
+            "dst_name": "main.cpp",
             "src_path": ["src"],
             "dst_path": ["src"]
         },
@@ -98,32 +98,29 @@ Project structure is configured via [`resources/configs`](resources/configs). Ex
             "src_path": ["tests"],
             "dst_path": ["tests"]
         },
+
+        ...
+        
         {
-            "name": "^launch\\.json$",
-            "src_path": ["configs"],
-            "dst_path": [".vscode"]
+            "name": "^.*$",
+            "src_path": ["GLFW", "include"],
+            "dst_path": ["external", "include", "GLFW"]
         },
         {
-            "src_name": "Linux_CMakePresets.json",
-            "dst_name": "CMakePresets.json",
-            "src_path": ["configs"],
-            "dst_path": []
-        },
-        {
-            "name": "^CMakeLists\\.txt$",
-            "src_path": ["configs"],
-            "dst_path": []
+            "name": "^.*$",
+            "src_path": ["GLFW", "lib"],
+            "dst_path": ["external", "lib"] 
         },
         {
             "name": "^.*$",
             "src_path": ["github"],
             "dst_path": []
-        }
+        }        
     ]
 }
 ```
 
-- **`dirs`**: List of directories to create in the project root.
+- **`dirs`**: List of directories (as paths) to create in the project root.
 
 - **`files_root`**: Subfolder inside `resources/files` that holds language-specific files  
   _(e.g., `c++` in [`resources/files/c++`](resources/files/c++))_

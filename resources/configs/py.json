@@ -1,7 +1,7 @@
 {
     "dirs": [
-        "src", 
-        "resources"
+        ["src"],
+        ["resources"]
     ],
     "files_root": "python",
     "files": [

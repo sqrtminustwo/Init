@@ -1,0 +1,61 @@
+# Set CMake version and project name
+cmake_minimum_required(VERSION 3.20)
+project(GLFWtest LANGUAGES CXX)
+
+# Add this line to explicitly tell CMake to generate compile_commands.json
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
+# Set C++ standard
+set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+# Collect source and header files
+file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS src/*.cpp)
+file(GLOB_RECURSE HEADERS CONFIGURE_DEPENDS include/*.h)
+
+# Create the executable
+add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})
+
+# Include dirs (project and GLFW)
+target_include_directories(${PROJECT_NAME}
+    PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/include
+        ${CMAKE_CURRENT_SOURCE_DIR}/external/include # Make sure this line exists for GLFW headers
+)
+
+# Define GLFW_STATIC for static linking
+target_compile_definitions(${PROJECT_NAME} PRIVATE GLFW_STATIC)
+
+# Add GLFW as a static imported library
+add_library(glfw STATIC IMPORTED GLOBAL)
+set_target_properties(glfw PROPERTIES
+    IMPORTED_LOCATION "${CMAKE_CURRENT_SOURCE_DIR}/external/lib/glfw3.lib"
+    INTERFACE_INCLUDE_DIRECTORIES "${CMAKE_CURRENT_SOURCE_DIR}/external/include"
+)
+
+# Link GLFW and Windows system libs
+target_link_libraries(${PROJECT_NAME}
+    PRIVATE
+        glfw
+        opengl32
+        gdi32
+        user32
+        shell32
+        advapi32
+        kernel32
+)
+
+# Warnings
+if (MSVC)
+    target_compile_options(${PROJECT_NAME} PRIVATE /W4 /permissive-)
+else()
+    target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wextra -Wpedantic -Wconversion)
+endif()
+
+# Enable LTO if available
+include(CheckIPOSupported)
+check_ipo_supported(RESULT result)
+if(result)
+    set_target_properties(${PROJECT_NAME} PROPERTIES INTERPROCEDURAL_OPTIMIZATION TRUE)
+endif()

@@ -46,10 +46,15 @@ class Initializer:
     
     def make_dirs(self, project_path: str, dirs: list) -> InitPart:
         created_dirs = []
-        for my_dir in dirs:
-            new_path = os.path.join(project_path, my_dir)
-            Path(new_path).mkdir()
-            created_dirs.append(new_path)
+        for dir_pack in dirs:
+            path_temp = project_path
+            for my_dir in dir_pack:
+                path_temp = os.path.join(path_temp, my_dir)
+                try:
+                    Path(path_temp).mkdir()
+                    created_dirs.append(path_temp)
+                except:
+                    pass
         return InitPart(created_dirs)
 
     def copy_files(self, project_path: str, files_path: str, config_files: list) -> InitPart:

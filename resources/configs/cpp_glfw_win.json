@@ -3,12 +3,15 @@
         ["src"],
         ["include"],
         ["tests"],
-        [".vscode"]
+        [".vscode"],
+        ["external", "include", "GLFW"],
+        ["external", "lib"]
     ],
     "files_root": "c++",
     "files": [
         {
-            "name": "^main\\.cpp$",
+            "src_name": "main_glfw.cpp",
+            "dst_name": "main.cpp",
             "src_path": ["src"],
             "dst_path": ["src"]
         },
@@ -23,15 +26,26 @@
             "dst_path": [".vscode"]
         },
         {
-            "src_name": "Linux_CMakePresets.json",
+            "src_name": "Windows_CMakePresets.json",
             "dst_name": "CMakePresets.json",
             "src_path": ["configs"],
             "dst_path": []
         },
         {
-            "name": "^CMakeLists\\.txt$",
+            "src_name": "GLFW_CMakeLists.txt",
+            "dst_name": "CMakeLists.txt",
             "src_path": ["configs"],
             "dst_path": []
+        },
+        {
+            "name": "^.*$",
+            "src_path": ["GLFW", "include"],
+            "dst_path": ["external", "include", "GLFW"]
+        },
+        {
+            "name": "^.*$",
+            "src_path": ["GLFW", "lib"],
+            "dst_path": ["external", "lib"] 
         },
         {
             "name": "^.*$",

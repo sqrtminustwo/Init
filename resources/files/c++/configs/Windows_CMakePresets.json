@@ -4,24 +4,34 @@
     {
       "name": "clang-debug",
       "displayName": "Clang Debug",
-      "description": "Use Clang compiler with Debug build type",
+      "description": "Use Clang compiler with Debug build type and native LLVM toolchain.",
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/build/clang-debug",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug"
-      },
-      "environment": {
-        "CC": "D:/Apps/msys64/clang64/bin/clang.exe",
-        "CXX": "D:/Apps/msys64/clang64/bin/clang++.exe"
       }
     },
     {
       "name": "Ninja (default)",
+      "displayName": "Ninja Release",
+      "description": "Default Release build with Ninja.",
       "generator": "Ninja",
-      "binaryDir": "${sourceDir}/build",
+      "binaryDir": "${sourceDir}/build/release",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release"
       }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "clang-debug",
+      "displayName": "Clang Debug Build",
+      "configurePreset": "clang-debug"
+    },
+    {
+      "name": "Ninja (default)",
+      "displayName": "Ninja Release Build",
+      "configurePreset": "Ninja (default)"
     }
   ]
 }
