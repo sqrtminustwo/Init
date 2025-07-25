@@ -1,7 +1,8 @@
 {
     "dirs": [
         ["src"],
-        ["include"],
+        ["include", "glad"],
+        ["include", "KHR"],
         ["tests"],
         [".vscode"],
         ["external", "include", "GLFW"],
@@ -12,7 +13,7 @@
         {
             "src_name": "main_glfw.cpp",
             "dst_name": "main.cpp",
-            "src_path": ["src"],
+            "src_path": ["GLFW", "src"],
             "dst_path": ["src"]
         },
         {
@@ -46,6 +47,21 @@
             "name": "^.*$",
             "src_path": ["GLFW", "lib"],
             "dst_path": ["external", "lib"] 
+        },
+        {
+            "name": "^glad\\.h$",
+            "src_path": ["GLAD", "glad"],
+            "dst_path": ["include", "glad"]
+        },
+        {
+            "name": "^khrplatform\\.h$",
+            "src_path": ["GLAD", "KHR"],
+            "dst_path": ["include", "KHR"]
+        },
+        {
+            "name": "^glad\\.c$",
+            "src_path": ["GLAD", "src"],
+            "dst_path": ["src"]
         },
         {
             "name": "^.*$",
