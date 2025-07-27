@@ -3,22 +3,20 @@
   "configurePresets": [
     {
       "name": "clang-debug",
-      "displayName": "Clang Debug",
-      "description": "Use Clang compiler with Debug build type",
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/build/clang-debug",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug"
       },
       "environment": {
-        "CC": "/usr/bin/clang",
-        "CXX": "/usr/bin/clang++"
+        "CC": "clang",
+        "CXX": "clang++"
       }
     },
     {
-      "name": "Ninja (default)",
+      "name": "release",
       "generator": "Ninja",
-      "binaryDir": "${sourceDir}/build",
+      "binaryDir": "${sourceDir}/build/release",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release"
       }
