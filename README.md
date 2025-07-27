@@ -76,7 +76,7 @@ cppinit ProjectName
 
 ## Configuration
 
-Project structure is configured via [`resources/configs`](resources/configs). Example for a C++ project ([`full config from example`](resources/configs/cpp_glfw_win.json)):
+Project structure is configured via [`resources/configs`](resources/configs). Example for a C++ project ([`full config from example`](resources/configs/cpp_opengl_win.json)):
 
 ```json
 {
