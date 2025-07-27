@@ -3,6 +3,7 @@
         ["src"],
         ["include", "glad"],
         ["include", "KHR"],
+        ["include", "src"],
         ["tests"],
         [".vscode"],
         ["external", "include", "GLFW"],
@@ -60,7 +61,7 @@
         {
             "name": "^glad\\.c$",
             "src_path": ["GLAD", "src"],
-            "dst_path": ["src"]
+            "dst_path": ["include", "src"]
         },
         {
             "name": "^.*$",
