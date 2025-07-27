@@ -21,8 +21,7 @@
             "dst_path": ["tests"]
         },
         {
-            "src_name": "Linux_CMakePresets.json",
-            "dst_name": "CMakePresets.json",
+            "name": "^CMakePresets\\.json$",
             "src_path": ["configs"],
             "dst_path": []
         },
