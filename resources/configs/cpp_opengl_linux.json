@@ -4,7 +4,6 @@
         ["include", "glad"],
         ["include", "KHR"],
         ["tests"],
-        [".vscode"],
         ["external", "include", "GLFW"],
         ["external", "lib"]
     ],
@@ -22,12 +21,7 @@
             "dst_path": ["tests"]
         },
         {
-            "name": "^launch\\.json$",
-            "src_path": ["configs"],
-            "dst_path": [".vscode"]
-        },
-        {
-            "src_name": "Windows_CMakePresets.json",
+            "src_name": "Linux_CMakePresets.json",
             "dst_name": "CMakePresets.json",
             "src_path": ["configs"],
             "dst_path": []
@@ -44,7 +38,7 @@
             "dst_path": ["external", "include", "GLFW"]
         },
         {
-            "name": "^.*$",
+            "name": "^libglfw3\\.a$",
             "src_path": ["GLFW", "lib"],
             "dst_path": ["external", "lib"] 
         },
