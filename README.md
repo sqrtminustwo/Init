@@ -80,50 +80,73 @@ Project structure is configured via [`resources/configs`](resources/configs). Ex
 
 ```json
 {
-    "dirs": [
-        ["external", "include", "GLFW"],
-        ["external", "lib"],
-        ["src"]
-    ],
-    "files_root": "c++",
-    "files": [
-        {
-            "src_name": "main_glfw.cpp",
-            "dst_name": "main.cpp",
-            "src_path": ["src"],
-            "dst_path": ["src"]
-        },
-        {
-            "name": "^test.*\\.cpp$",
-            "src_path": ["tests"],
-            "dst_path": ["tests"]
-        },
+  "files_root": "c++",
 
-        ...
-        
+  "structure": {
+    "default": {
+      "dirs": [
+        ["src"],
+        ["include"],
+        ["tests"]
+      ],
+      "files": [
         {
-            "name": "^.*$",
-            "src_path": ["GLFW", "include"],
-            "dst_path": ["external", "include", "GLFW"]
+          "src_name": "main_glfw.cpp",
+          "dst_name": "main.cpp",
+          "src_path": ["GLFW", "src"],
+          "dst_path": ["src"]
         },
         {
-            "name": "^.*$",
-            "src_path": ["GLFW", "lib"],
-            "dst_path": ["external", "lib"] 
+          "name": "^test.*\\.cpp$",
+          "src_path": ["tests"],
+          "dst_path": ["tests"]
         },
         {
-            "name": "^.*$",
-            "src_path": ["github"],
-            "dst_path": []
-        }        
-    ]
+          "name": "^CMakePresets\\.json$",
+          "src_path": ["configs"],
+          "dst_path": []
+        },
+        {
+          "src_name": "GLFW_CMakeLists.txt",
+          "dst_name": "CMakeLists.txt",
+          "src_path": ["configs"],
+          "dst_path": []
+        }
+      ]
+    },
+
+    "glfw": {
+      "dirs": [
+        ["external", "include", "GLFW"],
+        ["external", "lib"]
+      ],
+      "files": [
+        {
+          "name": "^.*$",
+          "src_path": ["GLFW", "include"],
+          "dst_path": ["external", "include", "GLFW"]
+        },
+        {
+          "name": "^libglfw3\\.a$",
+          "src_path": ["GLFW", "lib"],
+          "dst_path": ["external", "lib"]
+        }
+      ]
+    }
+  }
 }
 ```
 
-- **`dirs`**: List of directories (as paths) to create in the project root.
+### Files
 
 - **`files_root`**: Subfolder inside `resources/files` that holds language-specific files  
   _(e.g., `c++` in [`resources/files/c++`](resources/files/c++))_
+
+### Structure
+
+Structure can contain a variable number of keys, and you can choose the names yourself (the names of the keys inside the structure are ignored). The key-object pairs in the structure are created purely for better readability and organization of the config.
+
+- **`dirs`**: List of directories (as paths) to create in the project root.
 
 - **`files`**: Describes how files are copied from `resources/files/<files_root>` to the project.
 

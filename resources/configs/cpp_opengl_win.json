@@ -1,16 +1,15 @@
 {
-    "dirs": [
+  "files_root": "c++",
+
+  "structure": {
+    "default": {
+        "dirs": [
         ["src"],
-        ["include", "glad"],
-        ["include", "KHR"],
-        ["include", "src"],
+        ["include"],
         ["tests"],
-        [".vscode"],
-        ["external", "include", "GLFW"],
-        ["external", "lib"]
-    ],
-    "files_root": "c++",
-    "files": [
+        [".vscode"]
+        ],
+        "files": [
         {
             "src_name": "main_glfw.cpp",
             "dst_name": "main.cpp",
@@ -37,36 +36,62 @@
             "dst_name": "CMakeLists.txt",
             "src_path": ["configs"],
             "dst_path": []
-        },
-        {
-            "name": "^.*$",
-            "src_path": ["GLFW", "include"],
-            "dst_path": ["external", "include", "GLFW"]
-        },
-        {
-            "name": "^.*$",
-            "src_path": ["GLFW", "lib"],
-            "dst_path": ["external", "lib"] 
-        },
-        {
-            "name": "^glad\\.h$",
-            "src_path": ["GLAD", "glad"],
-            "dst_path": ["include", "glad"]
-        },
-        {
-            "name": "^khrplatform\\.h$",
-            "src_path": ["GLAD", "KHR"],
-            "dst_path": ["include", "KHR"]
-        },
-        {
-            "name": "^glad\\.c$",
-            "src_path": ["GLAD", "src"],
-            "dst_path": ["include", "src"]
-        },
-        {
-            "name": "^.*$",
-            "src_path": ["github"],
-            "dst_path": []
         }
-    ]
+        ]
+    },
+
+    "glfw": {
+      "dirs": [
+        ["external", "include", "GLFW"],
+        ["external", "lib"]
+      ],
+      "files": [
+        {
+          "name": "^.*$",
+          "src_path": ["GLFW", "include"],
+          "dst_path": ["external", "include", "GLFW"]
+        },
+        {
+          "name": "^glfw3\\.lib$",
+          "src_path": ["GLFW", "lib"],
+          "dst_path": ["external", "lib"]
+        }
+      ]
+    },
+
+    "glad": {
+      "dirs": [
+        ["include", "glad"],
+        ["include", "KHR"],
+        ["include", "src"]
+      ],
+      "files": [
+        {
+          "name": "^glad\\.h$",
+          "src_path": ["GLAD", "glad"],
+          "dst_path": ["include", "glad"]
+        },
+        {
+          "name": "^khrplatform\\.h$",
+          "src_path": ["GLAD", "KHR"],
+          "dst_path": ["include", "KHR"]
+        },
+        {
+          "name": "^glad\\.c$",
+          "src_path": ["GLAD", "src"],
+          "dst_path": ["include", "src"]
+        }
+      ]
+    },
+
+    "github": {
+      "files": [
+        {
+          "name": "^.*$",
+          "src_path": ["github"],
+          "dst_path": []
+        }
+      ]
+    }
+  }
 }
