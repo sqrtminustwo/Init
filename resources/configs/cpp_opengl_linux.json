@@ -150,7 +150,7 @@
 		"github": {
 			"files": [
 				{
-					"name": "^.*$",
+					"name": "^.+$",
 					"src_path": [
 						"github"
 					],
