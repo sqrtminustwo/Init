@@ -165,5 +165,3 @@ Structure can contain a variable number of keys, and you can choose the names yo
 
   - **`dst_path`**: Path (as an array of folders) within the project where the file will be copied.  
     > Use an empty array `[]` to copy into the project root.
-
----
