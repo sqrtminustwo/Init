@@ -1,13 +1,14 @@
 import json
-import shutil
 import os
+import re
+import shutil
 import sys
 import traceback
-import re
-from re import Pattern
-from pathlib import Path
 from os import listdir
 from os.path import isfile, join
+from pathlib import Path
+from re import Pattern
+
 
 class InitPart:
     def __init__(self, created_objects: list):
@@ -21,19 +22,19 @@ class InitPart:
         for obj in self.created_objects:
             print(obj)
 
-class Initializer:
 
+class Initializer:
     ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 
     @staticmethod
     def print_exception_info(msg: str, ex: Exception) -> None:
-        print(f'\n--- {msg} ---')
+        print(f"\n--- {msg} ---")
         print(f"Type    : {type(ex).__name__}")
         print(f"Message : {ex}")
         print("Traceback (most recent call last):")
         traceback.print_tb(ex.__traceback__)
         print("---------------------------\n")
-    
+
     @staticmethod
     def append_path(path: str, append: list) -> str:
         for my_dir in append:
@@ -43,11 +44,11 @@ class Initializer:
     @staticmethod
     def get_files_in_dir(mydir: str) -> list:
         return [f for f in listdir(mydir) if isfile(join(mydir, f))]
-    
+
     @staticmethod
     def get_matches_in_dir(files: list, regex: Pattern) -> list:
         return [f for f in files if regex.match(f)]
-    
+
     def make_dirs(self, project_path: str, dirs: list) -> InitPart:
         created_dirs = []
         for dir_pack in dirs:
@@ -61,15 +62,19 @@ class Initializer:
                     pass
         return InitPart(created_dirs)
 
-    def copy_files(self, project_path: str, files_path: str, config_files: list) -> InitPart:
+    def copy_files(
+        self, project_path: str, files_path: str, config_files: list
+    ) -> InitPart:
         created_files = []
         for file in config_files:
-            base_src = self.append_path(files_path, file["src_path"]) 
+            base_src = self.append_path(files_path, file["src_path"])
             avaliable_files = self.get_files_in_dir(base_src)
 
             toadd_names = None
             if "name" in file:
-                toadd_names = self.get_matches_in_dir(avaliable_files, re.compile(file["name"]))
+                toadd_names = self.get_matches_in_dir(
+                    avaliable_files, re.compile(file["name"])
+                )
             else:
                 toadd_names = [file["src_name"]]
 
@@ -83,41 +88,49 @@ class Initializer:
                 Path(file_path_dst).touch()
                 shutil.copyfile(file_path_src, file_path_dst)
                 created_files.append(file_path_dst)
-        
+
         return InitPart(created_files)
-    
+
     def load_project(self, config: dict) -> None:
-            Path(self.base_project_path).mkdir()
-            self.made_base_dir = True
-            files = os.path.join(Initializer.ROOT_DIR, "resources", "files", config["files_root"])
+        Path(self.base_project_path).mkdir(parents=True, exist_ok=True)
+        self.made_base_dir = True
 
-            for section in config["structure"].values():
-                if "dirs" in section:
-                    self.created_dirs.extend(self.make_dirs(self.base_project_path, section["dirs"]))
-                if "files" in section:
-                    self.created_files.extend(self.copy_files(self.base_project_path, files, section["files"]))
+        files = os.path.join(Initializer.ROOT_DIR, "resources", "files")
+        for my_dir in config["files_root"]:
+            files = os.path.join(files, my_dir)
 
-            print("Made dirs:")
-            self.created_dirs.print_created()
-            print("Copied files:")
-            self.created_files.print_created()
-    
+        for section in config["structure"].values():
+            if "dirs" in section:
+                self.created_dirs.extend(
+                    self.make_dirs(self.base_project_path, section["dirs"])
+                )
+            if "files" in section:
+                self.created_files.extend(
+                    self.copy_files(self.base_project_path, files, section["files"])
+                )
+
+        print("Made dirs:")
+        self.created_dirs.print_created()
+        print("Copied files:")
+        self.created_files.print_created()
+
     def __init__(self, base_dir, project_name, config_name):
-
         if len(config_name) < 5 or not (re.compile("^.*\\.json$")).match(config_name):
             config_name += ".json"
 
-        self.made_base_dir = False
-        self.base_project_path = None
-        self.created_dirs = InitPart([])
-        self.created_files = InitPart([])
+        self.made_base_dir: bool = False
+        self.base_project_path: str = ""
+        self.created_dirs: InitPart = InitPart([])
+        self.created_files: InitPart = InitPart([])
 
         try:
-            self.base_project_path = os.path.join(base_dir, project_name);
-            config_path = os.path.join(Initializer.ROOT_DIR, "resources", "configs", config_name)
+            self.base_project_path = os.path.join(base_dir, project_name)
+            config_path = os.path.join(
+                Initializer.ROOT_DIR, "resources", "configs", config_name
+            )
 
             with open(config_path, "r", encoding="utf-8") as config:
-                self.load_project(json.load(config));
+                self.load_project(json.load(config))
 
         except Exception as ex:
             self.print_exception_info("Error initializing", ex)

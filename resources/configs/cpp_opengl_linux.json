@@ -1,5 +1,8 @@
 {
-    "files_root": "c++",
+    "files_root": [
+        "c++",
+        "opengl"
+    ],
     "structure": {
         "default": {
             "dirs": [
@@ -8,30 +11,16 @@
                 ],
                 [
                     "include"
-                ],
-                [
-                    "tests"
                 ]
             ],
             "files": [
                 {
-                    "src_name": "main_glfw.cpp",
-                    "dst_name": "main.cpp",
+                    "name": "^main\\.cpp$",
                     "src_path": [
-                        "GLFW",
                         "src"
                     ],
                     "dst_path": [
                         "src"
-                    ]
-                },
-                {
-                    "name": "^test.*\\.cpp$",
-                    "src_path": [
-                        "tests"
-                    ],
-                    "dst_path": [
-                        "tests"
                     ]
                 },
                 {
@@ -42,8 +31,7 @@
                     "dst_path": []
                 },
                 {
-                    "src_name": "GLFW_CMakeLists.txt",
-                    "dst_name": "CMakeLists.txt",
+                    "name": "^CMakeLists\\.txt$",
                     "src_path": [
                         "configs"
                     ],

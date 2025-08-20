@@ -9,6 +9,7 @@ A simple Python script to initialize project templates.
 ### Windows
 
 1. Clone the repository:
+
 ```bash
 git clone https://github.com/sqrtminustwo/Init
 ```
@@ -25,6 +26,7 @@ python "your\path\to\p_init.py" %*
 ```
 
 Or with a predefined config:
+
 ```bat
 @echo off
 python "your\path\to\p_init.py" "configname" %*
@@ -34,11 +36,13 @@ python "your\path\to\p_init.py" "configname" %*
 > Do not remove `%*`. It is required to forward arguments (`%*` stands for a variable number of arguments in case the number changes in the future).
 
 #### Usage
+
 ```bash
 p_init ConfigName ProjectName
 ```
 
 Or if you initialized the `.bat` with a config:
+
 ```bash
 cppinit ProjectName
 ```
@@ -48,26 +52,31 @@ cppinit ProjectName
 ### Linux (Ubuntu Example)
 
 1. Clone the repository:
+
 ```bash
 git clone https://github.com/sqrtminustwo/Init
 ```
 
 2. Add the following alias to your `.bashrc`:
+
 ```bash
 alias p_init="python /your/path/to/p_init.py"
 ```
 
 Or with a predefined config:
+
 ```bash
 alias cppinit="python /your/path/to/p_init.py configname"
 ```
 
 #### Usage
+
 ```bash
 p_init ConfigName ProjectName
 ```
 
 Or if you initialized the alias with a config:
+
 ```bash
 cppinit ProjectName
 ```
@@ -80,7 +89,7 @@ Project structure is configured via [`resources/configs`](resources/configs). Ex
 
 ```json
 {
-  "files_root": "c++",
+  "files_root": ["c++", "opengl"],
 
   "structure": {
     "default": {
@@ -140,7 +149,7 @@ Project structure is configured via [`resources/configs`](resources/configs). Ex
 ### Files
 
 - **`files_root`**: Subfolder inside `resources/files` that holds language-specific files  
-  _(e.g., `c++` in [`resources/files/c++`](resources/files/c++))_
+  *(e.g., `[ "c++", "opengl" ]` in [`resources/files/c++`](resources/files/c++))*
 
 ### Structure
 
@@ -150,7 +159,8 @@ Structure can contain a variable number of keys, and you can choose the names yo
 
 - **`files`**: Describes how files are copied from `resources/files/<files_root>` to the project.
 
-  ### File Matching and Naming:
+  ### File Matching and Naming
+
   - **`name`**: Regular expression to match filenames inside `resources/files/<files_root>/<src_path>`.  
     > Use `^filename$` for exact matches and escape dots as `\\.`
 
@@ -159,10 +169,12 @@ Structure can contain a variable number of keys, and you can choose the names yo
     > If `name` is specified, `src_name` and `dst_name` are ignored.  
     > `src_name` and `dst_name` do not support regex.
 
-  ### File Paths:
+  ### File Paths
+
   - **`src_path`**: Path (as an array of folders) under the language folder to find the source file.  
     > Use an empty array `[]` for the root.
 
   - **`dst_path`**: Path (as an array of folders) within the project where the file will be copied.  
     > Use an empty array `[]` to copy into the project root.
+>
 ---

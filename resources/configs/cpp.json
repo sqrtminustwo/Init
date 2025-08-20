@@ -1,41 +1,61 @@
 {
-    "dirs": [
-        ["src"],
-        ["include"],
-        ["tests"],
-        [".vscode"]
+    "files_root": [
+        "c++",
+        "default"
     ],
-    "files_root": "c++",
-    "files": [
-        {
-            "name": "^main\\.cpp$",
-            "src_path": ["src"],
-            "dst_path": ["src"]
+    "structure": {
+        "default": {
+            "dirs": [
+                [
+                    "src"
+                ],
+                [
+                    "include"
+                ]
+            ],
+            "files": [
+                {
+                    "name": "^.*\\.cpp$",
+                    "src_path": [
+                        "src"
+                    ],
+                    "dst_path": [
+                        "src"
+                    ]
+                },
+                {
+                    "name": "^CMakePresets\\.json$",
+                    "src_path": [
+                        "configs"
+                    ],
+                    "dst_path": []
+                },
+                {
+                    "name": "^CMakeLists\\.txt$",
+                    "src_path": [
+                        "configs"
+                    ],
+                    "dst_path": []
+                },
+                {
+                    "name": "^\\.clangd$",
+                    "src_path": [
+                        "clang"
+                    ],
+                    "dst_path": []
+                }
+            ]
         },
-        {
-            "name": "^test.*\\.cpp$",
-            "src_path": ["tests"],
-            "dst_path": ["tests"]
-        },
-        {
-            "name": "^launch\\.json$",
-            "src_path": ["configs"],
-            "dst_path": [".vscode"]
-        },
-        {
-            "name": "^CMakePresets\\.json$",
-            "src_path": ["configs"],
-            "dst_path": []
-        },
-        {
-            "name": "^CMakeLists\\.txt$",
-            "src_path": ["configs"],
-            "dst_path": []
-        },
-        {
-            "name": "^.*$",
-            "src_path": ["github"],
-            "dst_path": []
+        "github": {
+            "files": [
+                {
+                    "name": "^.+$",
+                    "src_path": [
+                        "github"
+                    ],
+                    "dst_path": []
+                }
+            ]
         }
-    ]
+    }
 }
